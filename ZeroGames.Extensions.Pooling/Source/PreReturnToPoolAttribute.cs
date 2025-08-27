@@ -1,6 +1,6 @@
 ﻿// Copyright Zero Games. All Rights Reserved.
 
-namespace ZeroGames.Pooling;
+namespace ZeroGames.Extensions.Pooling;
 
 [AttributeUsage(AttributeTargets.Method)]
 public sealed class PreReturnToPoolAttribute : Attribute;

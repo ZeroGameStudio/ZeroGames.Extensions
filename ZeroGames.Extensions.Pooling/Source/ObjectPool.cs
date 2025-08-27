@@ -2,7 +2,7 @@
 
 using System.Reflection;
 
-namespace ZeroGames.Pooling;
+namespace ZeroGames.Extensions.Pooling;
 
 public sealed class ObjectPool<T> where T : class, new()
 {

@@ -1,6 +1,6 @@
 ﻿// Copyright Zero Games. All Rights Reserved.
 
-namespace ZeroGames.Pooling;
+namespace ZeroGames.Extensions.Pooling;
 
 public readonly struct ObjectPoolConfig
 {

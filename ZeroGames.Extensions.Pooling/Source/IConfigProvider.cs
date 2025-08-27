@@ -1,6 +1,6 @@
 ﻿// Copyright Zero Games. All Rights Reserved.
 
-namespace ZeroGames.Pooling;
+namespace ZeroGames.Extensions.Pooling;
 
 public interface IConfigProvider<T> where T : class, new()
 {
