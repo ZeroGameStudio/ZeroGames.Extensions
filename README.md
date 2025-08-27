@@ -1,2 +1,2 @@
-# ZeroGames.NET
-.NET utility libraries of Zero Games.
+# ZeroGames.Extensions
+.NET extension libraries of Zero Games.
