@@ -1,4 +1,6 @@
 <Solution>
-  <Project Path="ZeroGames.Extensions.Pooling\ZeroGames.Extensions.Pooling.csproj" Type="Classic C#" />
-  <Project Path="ZeroGames.Extensions\ZeroGames.Extensions.csproj" Type="Classic C#" />
+  <Project Path="ZeroGames.Extensions.Math/ZeroGames.Extensions.Math.csproj" />
+  <Project Path="ZeroGames.Extensions.Pooling\ZeroGames.Extensions.Pooling.csproj" />
+  <Project Path="ZeroGames.Extensions.Test/ZeroGames.Extensions.Test.csproj" />
+  <Project Path="ZeroGames.Extensions\ZeroGames.Extensions.csproj" />
 </Solution>
