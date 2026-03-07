@@ -4,7 +4,7 @@ using System.Runtime.CompilerServices;
 
 namespace ZeroGames.Extensions.Math;
 
-partial struct Vector2D
+partial struct Vector2
 {
 
 	public double Size
@@ -37,13 +37,13 @@ partial struct Vector2D
 		get => Abs(1 - SizeSquared) < THRESH_VECTOR_NORMALIZED;
 	}
 
-	public Vector2D Normalized
+	public Vector2 Normalized
 	{
 		[MethodImpl(MethodImplOptions.AggressiveInlining)]
 		get => SizeSquared >= THRESH_VECTOR_NORMALIZED ? this / Size : Zero;
 	}
 	
-	public Vector2D Sign
+	public Vector2 Sign
 	{
 		[MethodImpl(MethodImplOptions.AggressiveInlining)]
 		get => new(Sign(X), Sign(Y));

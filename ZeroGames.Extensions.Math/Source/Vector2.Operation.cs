@@ -4,20 +4,20 @@ using System.Runtime.CompilerServices;
 
 namespace ZeroGames.Extensions.Math;
 
-partial struct Vector2D
+partial struct Vector2
 {
 
 	[MethodImpl(MethodImplOptions.AggressiveInlining)]
-	public Vector2D GetClampedToSize(double min, double max)
+	public Vector2 GetClampedToSize(double min, double max)
 	{
 		double vecSize = Size;
-		Vector2D vecDir = vecSize > SMALL_NUMBER ? this / vecSize : Zero;
+		Vector2 vecDir = vecSize > SMALL_NUMBER ? this / vecSize : Zero;
 		double clampedSize = System.Math.Clamp(vecSize, min, max);
 		return clampedSize * vecDir;
 	}
 
 	[MethodImpl(MethodImplOptions.AggressiveInlining)]
-	public Vector2D GetClampedToMaxSize(double maxSize)
+	public Vector2 GetClampedToMaxSize(double maxSize)
 	{
 		if (maxSize < KINDA_SMALL_NUMBER)
 		{
@@ -34,13 +34,13 @@ partial struct Vector2D
 	}
 
 	[MethodImpl(MethodImplOptions.AggressiveInlining)]
-	public Vector2D ComponentMin(Vector2D other) => new(System.Math.Min(X, other.X), System.Math.Min(Y, other.Y));
+	public Vector2 ComponentMin(Vector2 other) => new(System.Math.Min(X, other.X), System.Math.Min(Y, other.Y));
 
 	[MethodImpl(MethodImplOptions.AggressiveInlining)]
-	public Vector2D ComponentMax(Vector2D other) => new(System.Math.Max(X, other.X), System.Math.Max(Y, other.Y));
+	public Vector2 ComponentMax(Vector2 other) => new(System.Math.Max(X, other.X), System.Math.Max(Y, other.Y));
 
 	[MethodImpl(MethodImplOptions.AggressiveInlining)]
-	public Vector2D GetRotated(double angleDeg)
+	public Vector2 GetRotated(double angleDeg)
 	{
 		double angleRad = DegreesToRadians(angleDeg);
 		var (sin, cos) = SinCos(angleRad);
@@ -48,7 +48,7 @@ partial struct Vector2D
 	}
 
 	[MethodImpl(MethodImplOptions.AggressiveInlining)]
-	public void ToDirectionAndLength(out Vector2D direction, out double length)
+	public void ToDirectionAndLength(out Vector2 direction, out double length)
 	{
 		length = Size;
 		if (length > SMALL_NUMBER)
@@ -63,16 +63,16 @@ partial struct Vector2D
 	}
 
 	[MethodImpl(MethodImplOptions.AggressiveInlining)]
-	public Vector2D RoundToVector() => new(Round(X), Round(Y));
+	public Vector2 RoundToVector() => new(Round(X), Round(Y));
 
 	[MethodImpl(MethodImplOptions.AggressiveInlining)]
-	public Vector2D ClampAxes(double min, double max) => new(System.Math.Clamp(X, min, max), System.Math.Clamp(Y, min, max));
+	public Vector2 ClampAxes(double min, double max) => new(System.Math.Clamp(X, min, max), System.Math.Clamp(Y, min, max));
 
 	[MethodImpl(MethodImplOptions.AggressiveInlining)]
-	public double Distance(Vector2D other) => Sqrt(DistanceSquared(other));
+	public double Distance(Vector2 other) => Sqrt(DistanceSquared(other));
 
 	[MethodImpl(MethodImplOptions.AggressiveInlining)]
-	public double DistanceSquared(Vector2D other) => Square(X - other.X) + Square(Y - other.Y);
+	public double DistanceSquared(Vector2 other) => Square(X - other.X) + Square(Y - other.Y);
 
 	[MethodImpl(MethodImplOptions.AggressiveInlining)]
 	public bool Normalize()
@@ -91,7 +91,7 @@ partial struct Vector2D
 	}
 
 	[MethodImpl(MethodImplOptions.AggressiveInlining)]
-	public static Vector2D MakeFromAngleAndLength(double angleDeg, double length)
+	public static Vector2 MakeFromAngleAndLength(double angleDeg, double length)
 	{
 		double angleRad = DegreesToRadians(angleDeg);
 		return new(Cos(angleRad) * length, Sin(angleRad) * length);
