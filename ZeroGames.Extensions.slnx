@@ -1,4 +1,5 @@
 <Solution>
+  <Project Path="ZeroGames.Extensions.Async/ZeroGames.Extensions.Async.csproj" />
   <Project Path="ZeroGames.Extensions.Math/ZeroGames.Extensions.Math.csproj" />
   <Project Path="ZeroGames.Extensions.Pooling\ZeroGames.Extensions.Pooling.csproj" />
   <Project Path="ZeroGames.Extensions.Test/ZeroGames.Extensions.Test.csproj" />

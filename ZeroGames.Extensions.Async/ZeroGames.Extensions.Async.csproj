@@ -1,0 +1,51 @@
+<Project Sdk="ZeroGames.NET.Sdk/1.0.0">
+	
+	<PropertyGroup>
+		<TargetFramework>net10.0</TargetFramework>
+		<LangVersion>14</LangVersion>
+		<ImplicitUsings>enable</ImplicitUsings>
+		<Nullable>enable</Nullable>
+		<Authors>Lin7Han</Authors>
+		<Company>ZeroGames</Company>
+		<AssemblyVersion>1.0.0</AssemblyVersion>
+		<FileVersion>1.0.0</FileVersion>
+		<NeutralLanguage>zh</NeutralLanguage>
+	</PropertyGroup>
+	
+	<ItemGroup>
+	  <ProjectReference Include="..\ZeroGames.Extensions\ZeroGames.Extensions.csproj" />
+	</ItemGroup>
+
+	<ItemGroup>
+		<None Update="Source\Event\IEvent.tt">
+			<Generator>TextTemplatingFileGenerator</Generator>
+			<LastGenOutput>IEvent.cs</LastGenOutput>
+		</None>
+		<None Update="Source\Event\Event.tt">
+			<Generator>TextTemplatingFileGenerator</Generator>
+			<LastGenOutput>Event.cs</LastGenOutput>
+		</None>
+		<None Update="Source\Event\NeverEvent.tt">
+			<Generator>TextTemplatingFileGenerator</Generator>
+			<LastGenOutput>NeverEvent.cs</LastGenOutput>
+		</None>
+		<Compile Update="Source\Event\IEvent.cs">
+			<AutoGen>True</AutoGen>
+			<DesignTime>True</DesignTime>
+			<DependentUpon>IEvent.tt</DependentUpon>
+		</Compile>
+		<Compile Update="Source\Event\Event.cs">
+			<AutoGen>True</AutoGen>
+			<DesignTime>True</DesignTime>
+			<DependentUpon>Event.tt</DependentUpon>
+		</Compile>
+		<Compile Update="Source\Event\NeverEvent.cs">
+			<AutoGen>True</AutoGen>
+			<DesignTime>True</DesignTime>
+			<DependentUpon>NeverEvent.tt</DependentUpon>
+		</Compile>
+	</ItemGroup>
+
+</Project>
+
+
