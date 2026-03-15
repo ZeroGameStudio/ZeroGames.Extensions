@@ -7,7 +7,7 @@ public static class IsValidByDefaultMixin
 {
 	extension<T>(T @this) where T : struct, IMixin_IsValidByDefault<T>, IEquatable<T>
 	{
-		public bool IsValid => @this.Equals(default);
+		public bool IsValid => !@this.Equals(default);
 	}
 }
 
