@@ -1,0 +1,32 @@
+<#@ template language="C#" #>
+<#@ output extension=".cs" #>
+<#@ assembly name="System.Core" #>
+<#@ import namespace="System.Linq" #>
+// Copyright Zero Games. All Rights Reserved.
+
+namespace ZeroGames.Extensions.Async;
+
+<# for (int n = 0; n <= 7; n++){
+	int localN = n;
+    string outTypeParams = n > 0 ? "<" + string.Join(", ", Enumerable.Range(1, n).Select(i => localN > 1 ? "out T" + i : "out T")) + ">" : "";
+    string typeParams = n > 0 ? "<" + string.Join(", ", Enumerable.Range(1, n).Select(i => localN > 1 ? "T" + i : "T")) + ">" : "";
+    string typeArgs = n > 0 ? "<" + string.Join(", ", Enumerable.Range(1, n).Select(i => localN > 1 ? "T" + i : "T")) + ">" : "";
+    string actionArgs = n > 0 ? "<" + string.Join(", ", Enumerable.Range(1, n).Select(i => localN > 1 ? "T" + i : "T")) + ">" : "";
+    string invokeParams = n > 0 ? string.Join(", ", Enumerable.Range(1, n).Select(i => localN > 1 ? "T" + i + " arg" + i : "T arg")) : "";
+#>
+public interface IEventEntry<#= outTypeParams #> : IRemoveEventRegistrationSource
+{
+	EventRegistration Add(Action<#= actionArgs #> handler, Lifetime lifetime = default);
+	int32 RemoveAll(object? target);
+}
+
+public interface IEvent<#= typeParams #> : IEventEntry<#= typeArgs #>
+{
+	void Invoke(<#= invokeParams #>);
+
+	Func<Exception, bool>? ExceptionHandler { set; }
+}
+
+<# } #>
+
+

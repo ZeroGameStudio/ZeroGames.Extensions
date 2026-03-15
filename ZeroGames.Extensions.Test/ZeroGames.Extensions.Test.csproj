@@ -15,6 +15,7 @@
     </PropertyGroup>
 
     <ItemGroup>
+      <ProjectReference Include="..\ZeroGames.Extensions.Async\ZeroGames.Extensions.Async.csproj" />
       <ProjectReference Include="..\ZeroGames.Extensions.Math\ZeroGames.Extensions.Math.csproj" />
       <ProjectReference Include="..\ZeroGames.Extensions.Pooling\ZeroGames.Extensions.Pooling.csproj" />
       <ProjectReference Include="..\ZeroGames.Extensions\ZeroGames.Extensions.csproj" />

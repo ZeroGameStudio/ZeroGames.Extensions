@@ -44,6 +44,21 @@
 			<DesignTime>True</DesignTime>
 			<DependentUpon>NeverEvent.tt</DependentUpon>
 		</Compile>
+		<Compile Update="Source\Event\Event.cs">
+		  <AutoGen>True</AutoGen>
+		  <DesignTime>True</DesignTime>
+		  <DependentUpon>Event.tt</DependentUpon>
+		</Compile>
+		<Compile Update="Source\Event\IEvent.cs">
+		  <AutoGen>True</AutoGen>
+		  <DesignTime>True</DesignTime>
+		  <DependentUpon>IEvent.tt</DependentUpon>
+		</Compile>
+		<Compile Update="Source\Event\NeverEvent.cs">
+		  <AutoGen>True</AutoGen>
+		  <DesignTime>True</DesignTime>
+		  <DependentUpon>NeverEvent.tt</DependentUpon>
+		</Compile>
 	</ItemGroup>
 
 </Project>

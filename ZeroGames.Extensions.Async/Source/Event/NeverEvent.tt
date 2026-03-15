@@ -1,0 +1,34 @@
+<#@ template language="C#" #>
+<#@ output extension=".cs" #>
+<#@ assembly name="System.Core" #>
+<#@ import namespace="System.Linq" #>
+// Copyright Zero Games. All Rights Reserved.
+
+namespace ZeroGames.Extensions.Async;
+
+<# for (int n = 0; n <= 7; n++){
+	int localN = n;
+    string typeParams = n > 0 ? "<" + string.Join(", ", Enumerable.Range(1, n).Select(i => localN > 1 ? "T" + i : "T")) + ">" : "";
+    string actionArgs = n > 0 ? "<" + string.Join(", ", Enumerable.Range(1, n).Select(i => localN > 1 ? "T" + i : "T")) + ">" : "";
+    string invokeParams = n > 0 ? string.Join(", ", Enumerable.Range(1, n).Select(i => localN > 1 ? "T" + i + " arg" + i : "T arg")) : "";
+#>
+public class NeverEvent<#= typeParams #> : IEvent<#= typeParams #>
+{
+	public static NeverEvent<#= typeParams #> Instance { get; } = new();
+
+	private NeverEvent(){}
+
+	#region IEvent<#= typeParams #> Implementations
+
+	public EventRegistration Add(Action<#= actionArgs #> handler, Lifetime lifetime = default) => default;
+	public bool Remove(EventRegistration registration) => false;
+	public int32 RemoveAll(object? target) => 0;
+	public void Invoke(<#= invokeParams #>){}
+	public Func<Exception, bool>? ExceptionHandler { set{} }
+
+	#endregion
+}
+
+<# } #>
+
+
