@@ -20,11 +20,9 @@ public interface IEventEntry<#= outTypeParams #> : IRemoveEventRegistrationSourc
 	int32 RemoveAll(object? target);
 }
 
-public interface IEvent<#= typeParams #> : IEventEntry<#= typeArgs #>
+public interface IEvent<#= typeParams #> : IEventEntry<#= typeArgs #>, IExceptionHandlerReceiver
 {
 	void Invoke(<#= invokeParams #>);
-
-	Func<Exception, bool>? ExceptionHandler { set; }
 }
 
 <# } #>

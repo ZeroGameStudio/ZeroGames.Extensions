@@ -8,11 +8,9 @@ public interface IEventEntry : IRemoveEventRegistrationSource
 	int32 RemoveAll(object? target);
 }
 
-public interface IEvent : IEventEntry
+public interface IEvent : IEventEntry, IExceptionHandlerReceiver
 {
 	void Invoke();
-
-	Func<Exception, bool>? ExceptionHandler { set; }
 }
 
 public interface IEventEntry<out T> : IRemoveEventRegistrationSource
@@ -21,11 +19,9 @@ public interface IEventEntry<out T> : IRemoveEventRegistrationSource
 	int32 RemoveAll(object? target);
 }
 
-public interface IEvent<T> : IEventEntry<T>
+public interface IEvent<T> : IEventEntry<T>, IExceptionHandlerReceiver
 {
 	void Invoke(T arg);
-
-	Func<Exception, bool>? ExceptionHandler { set; }
 }
 
 public interface IEventEntry<out T1, out T2> : IRemoveEventRegistrationSource
@@ -34,11 +30,9 @@ public interface IEventEntry<out T1, out T2> : IRemoveEventRegistrationSource
 	int32 RemoveAll(object? target);
 }
 
-public interface IEvent<T1, T2> : IEventEntry<T1, T2>
+public interface IEvent<T1, T2> : IEventEntry<T1, T2>, IExceptionHandlerReceiver
 {
 	void Invoke(T1 arg1, T2 arg2);
-
-	Func<Exception, bool>? ExceptionHandler { set; }
 }
 
 public interface IEventEntry<out T1, out T2, out T3> : IRemoveEventRegistrationSource
@@ -47,11 +41,9 @@ public interface IEventEntry<out T1, out T2, out T3> : IRemoveEventRegistrationS
 	int32 RemoveAll(object? target);
 }
 
-public interface IEvent<T1, T2, T3> : IEventEntry<T1, T2, T3>
+public interface IEvent<T1, T2, T3> : IEventEntry<T1, T2, T3>, IExceptionHandlerReceiver
 {
 	void Invoke(T1 arg1, T2 arg2, T3 arg3);
-
-	Func<Exception, bool>? ExceptionHandler { set; }
 }
 
 public interface IEventEntry<out T1, out T2, out T3, out T4> : IRemoveEventRegistrationSource
@@ -60,11 +52,9 @@ public interface IEventEntry<out T1, out T2, out T3, out T4> : IRemoveEventRegis
 	int32 RemoveAll(object? target);
 }
 
-public interface IEvent<T1, T2, T3, T4> : IEventEntry<T1, T2, T3, T4>
+public interface IEvent<T1, T2, T3, T4> : IEventEntry<T1, T2, T3, T4>, IExceptionHandlerReceiver
 {
 	void Invoke(T1 arg1, T2 arg2, T3 arg3, T4 arg4);
-
-	Func<Exception, bool>? ExceptionHandler { set; }
 }
 
 public interface IEventEntry<out T1, out T2, out T3, out T4, out T5> : IRemoveEventRegistrationSource
@@ -73,11 +63,9 @@ public interface IEventEntry<out T1, out T2, out T3, out T4, out T5> : IRemoveEv
 	int32 RemoveAll(object? target);
 }
 
-public interface IEvent<T1, T2, T3, T4, T5> : IEventEntry<T1, T2, T3, T4, T5>
+public interface IEvent<T1, T2, T3, T4, T5> : IEventEntry<T1, T2, T3, T4, T5>, IExceptionHandlerReceiver
 {
 	void Invoke(T1 arg1, T2 arg2, T3 arg3, T4 arg4, T5 arg5);
-
-	Func<Exception, bool>? ExceptionHandler { set; }
 }
 
 public interface IEventEntry<out T1, out T2, out T3, out T4, out T5, out T6> : IRemoveEventRegistrationSource
@@ -86,11 +74,9 @@ public interface IEventEntry<out T1, out T2, out T3, out T4, out T5, out T6> : I
 	int32 RemoveAll(object? target);
 }
 
-public interface IEvent<T1, T2, T3, T4, T5, T6> : IEventEntry<T1, T2, T3, T4, T5, T6>
+public interface IEvent<T1, T2, T3, T4, T5, T6> : IEventEntry<T1, T2, T3, T4, T5, T6>, IExceptionHandlerReceiver
 {
 	void Invoke(T1 arg1, T2 arg2, T3 arg3, T4 arg4, T5 arg5, T6 arg6);
-
-	Func<Exception, bool>? ExceptionHandler { set; }
 }
 
 public interface IEventEntry<out T1, out T2, out T3, out T4, out T5, out T6, out T7> : IRemoveEventRegistrationSource
@@ -99,11 +85,9 @@ public interface IEventEntry<out T1, out T2, out T3, out T4, out T5, out T6, out
 	int32 RemoveAll(object? target);
 }
 
-public interface IEvent<T1, T2, T3, T4, T5, T6, T7> : IEventEntry<T1, T2, T3, T4, T5, T6, T7>
+public interface IEvent<T1, T2, T3, T4, T5, T6, T7> : IEventEntry<T1, T2, T3, T4, T5, T6, T7>, IExceptionHandlerReceiver
 {
 	void Invoke(T1 arg1, T2 arg2, T3 arg3, T4 arg4, T5 arg5, T6 arg6, T7 arg7);
-
-	Func<Exception, bool>? ExceptionHandler { set; }
 }
 
 
