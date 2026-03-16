@@ -8,6 +8,11 @@ public readonly partial struct ReactiveLifetime
 	public static implicit operator ReactiveLifetime(CancellationToken cancellationToken) => new(cancellationToken);
 	public static implicit operator Lifetime(ReactiveLifetime @this)
 	{
+		if (@this.IsExpired)
+		{
+			return Lifetime.Expired;
+		}
+		
 		if (@this._backend is null)
 		{
 			return @this._token.IsInlineExpired ? Lifetime.Expired : Lifetime.NeverExpired;

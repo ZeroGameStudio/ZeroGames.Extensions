@@ -13,15 +13,14 @@ public struct LifetimeExpirationSource : IReactiveLifetimeSource
 	
 	public LifetimeExpiredRegistration RegisterOnExpired(Action callback)
 	{
-		return Lifetime.RegisterOnExpired(callback);
+		return ReactiveLifetime.RegisterOnExpired(callback);
 	}
 
 	public LifetimeExpiredRegistration RegisterOnExpired(Action<object?> callback, object? state)
 	{
-		return Lifetime.RegisterOnExpired(callback, state);
+		return ReactiveLifetime.RegisterOnExpired(callback, state);
 	}
-
-	public ReactiveLifetime Lifetime => ReactiveLifetime.FromBackend(_backend);
+	
 	public bool IsExpired => Lifetime.IsExpired;
 
 	private struct GetFromPool;
@@ -30,6 +29,10 @@ public struct LifetimeExpirationSource : IReactiveLifetimeSource
 	{
 		_backend = PooledReactiveLifetimeBackend.GetFromPool();
 		_token = _backend.Token;
+
+		// Capture token into lifetime object.
+		ReactiveLifetime = ReactiveLifetime.FromBackend(_backend);
+		Lifetime = ReactiveLifetime;
 	}
 
 	private readonly PooledReactiveLifetimeBackend? _backend;
@@ -37,8 +40,8 @@ public struct LifetimeExpirationSource : IReactiveLifetimeSource
 	
 	#region IReactiveLifetime Implementations
 	
-	Lifetime ILifetimeSource.Lifetime => Lifetime;
-	ReactiveLifetime IReactiveLifetimeSource.ReactiveLifetime => Lifetime;
+	public Lifetime Lifetime { get; }
+	public ReactiveLifetime ReactiveLifetime { get; }
 
 	#endregion
 }
