@@ -13,6 +13,7 @@
 	</PropertyGroup>
 	
 	<ItemGroup>
+	  <ProjectReference Include="..\ZeroGames.Extensions.Pooling\ZeroGames.Extensions.Pooling.csproj" />
 	  <ProjectReference Include="..\ZeroGames.Extensions\ZeroGames.Extensions.csproj" />
 	</ItemGroup>
 

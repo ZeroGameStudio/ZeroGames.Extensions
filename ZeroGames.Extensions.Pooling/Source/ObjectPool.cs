@@ -6,7 +6,8 @@ namespace ZeroGames.Extensions.Pooling;
 
 public sealed class ObjectPool<T> where T : class, new()
 {
-
+	
+	public ObjectPool() : this(ConfigProvider.Instance){}
 	public ObjectPool(IConfigProvider<T> configProvider)
 	{
 		configProvider.GetConfig(out _config);
@@ -36,6 +37,26 @@ public sealed class ObjectPool<T> where T : class, new()
 		// If client ReturnToPool() throws then we throw at this point and won't add to link.
 		ReturnToPool(instance);
 		_storage.Enqueue(instance);
+	}
+
+	private class ConfigProvider : IConfigProvider<T>
+	{
+		public static ConfigProvider Instance { get; } = new();
+		
+		private ConfigProvider(){}
+		
+		#region IConfigProvider<T> Implementations
+		
+		public void GetConfig(out ObjectPoolConfig config)
+		{
+			config = new()
+			{
+				MaxAliveCount = MAX_DEFAULT_CAPACITY,
+				PrecacheCount = 0,
+			};
+		}
+		
+		#endregion
 	}
 	
 	private void GetFromPool(T instance)
