@@ -9,10 +9,10 @@ public static class ObjectExtensions
 	extension(object @this)
 	{
 		[MethodImpl(MethodImplOptions.AggressiveInlining)]
-		public T? As<T>() where T : class => @this as T;
+		public T? As<T>() => @this is T t ? t : default;
 		
 		[MethodImpl(MethodImplOptions.AggressiveInlining)]
-		public T To<T>() where T : class => (T)@this;
+		public T To<T>() => (T)@this;
 	}
 }
 

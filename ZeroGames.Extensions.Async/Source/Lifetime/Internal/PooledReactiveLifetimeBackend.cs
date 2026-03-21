@@ -16,45 +16,65 @@ internal class PooledReactiveLifetimeBackend : IReactiveLifetimeBackend, IPooled
 	{
 		ReactiveLifetime = ReactiveLifetime.FromBackend(this);
 
-		_comp = new(this);
-		_comp.Initialize();
+		_core = new(this);
+		_core.Initialize();
 	}
 
 	public void SetExpired(LifetimeToken token)
 	{
-		_comp.SetExpired(token);
+		_core.SetExpired(token);
 		_pool.Return(this);
+	}
+	
+	public void BindResourceLifetime(IDisposable resource, LifetimeToken token)
+	{
+		_core.BindResourceLifetime(resource, token);
+	}
+
+	public void BindResourceLifetime(LifetimeExpirationSource resource, LifetimeToken token)
+	{
+		_core.BindResourceLifetime(resource, token);
 	}
 	
 	private static readonly ObjectPool<PooledReactiveLifetimeBackend> _pool = new();
 
-	private LifetimeBackendComp _comp;
+	private LifetimeBackendCore _core;
 	
 	#region IReactiveLifetimeBackend Implementations
 	
 	public bool IsExpired(LifetimeToken token)
 	{
-		return _comp.IsExpired(token);
+		return _core.IsExpired(token);
 	}
 	
 	public LifetimeExpiredRegistration RegisterOnExpired(Action callback, LifetimeToken token)
 	{
-		return _comp.RegisterOnExpired(callback, token);
+		return _core.RegisterOnExpired(callback, token);
 	}
 
 	public LifetimeExpiredRegistration RegisterOnExpired(Action<object?> callback, object? state, LifetimeToken token)
 	{
-		return _comp.RegisterOnExpired(callback, state, token);
+		return _core.RegisterOnExpired(callback, state, token);
 	}
 
 	public void UnregisterOnExpired(LifetimeExpiredRegistration registration, LifetimeToken token)
 	{
-		_comp.UnregisterOnExpired(registration, token);
+		_core.UnregisterOnExpired(registration, token);
+	}
+
+	public void BindResourceLifetime(IDisposable resource)
+	{
+		BindResourceLifetime(resource, Token);
+	}
+
+	public void BindResourceLifetime(LifetimeExpirationSource resource)
+	{
+		BindResourceLifetime(resource, Token);
 	}
 
 	public Lifetime Lifetime => ReactiveLifetime;
 	public ReactiveLifetime ReactiveLifetime { get; }
-	public LifetimeToken Token => _comp.Token;
+	public LifetimeToken Token => _core.Token;
 	
 	#endregion
 
@@ -62,12 +82,12 @@ internal class PooledReactiveLifetimeBackend : IReactiveLifetimeBackend, IPooled
 	
 	public void PreGetFromPool()
 	{
-		_comp.Initialize();
+		_core.Initialize();
 	}
 
 	public void PreReturnToPool()
 	{
-		_comp.Deinitialize();
+		_core.Deinitialize();
 	}
 	
 	#endregion

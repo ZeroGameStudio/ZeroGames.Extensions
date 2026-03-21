@@ -2,7 +2,7 @@
 
 namespace ZeroGames.Extensions.Async;
 
-public struct LifetimeExpirationSource : IReactiveLifetimeSource
+public struct LifetimeExpirationSource : IReactiveLifetimeSource, IDisposable
 {
 	public static LifetimeExpirationSource Create() => new(default);
 
@@ -21,7 +21,7 @@ public struct LifetimeExpirationSource : IReactiveLifetimeSource
 		return ReactiveLifetime.RegisterOnExpired(callback, state);
 	}
 	
-	public bool IsExpired => Lifetime.IsExpired;
+	public bool IsExpired => ReactiveLifetime.IsExpired;
 
 	private struct GetFromPool;
 
@@ -32,16 +32,30 @@ public struct LifetimeExpirationSource : IReactiveLifetimeSource
 
 		// Capture token into lifetime object.
 		ReactiveLifetime = ReactiveLifetime.FromBackend(_backend);
-		Lifetime = ReactiveLifetime;
 	}
 
 	private readonly PooledReactiveLifetimeBackend? _backend;
 	private readonly LifetimeToken _token;
 	
 	#region IReactiveLifetime Implementations
+
+	public void BindResourceLifetime(IDisposable resource)
+	{
+		_backend?.BindResourceLifetime(resource);
+	}
+
+	public void BindResourceLifetime(LifetimeExpirationSource resource)
+	{
+		_backend?.BindResourceLifetime(resource);
+	}
 	
-	public Lifetime Lifetime { get; }
 	public ReactiveLifetime ReactiveLifetime { get; }
+
+	#endregion
+	
+	#region IDisposable Implementations
+
+	public void Dispose() => SetExpired();
 
 	#endregion
 }

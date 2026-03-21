@@ -2,7 +2,7 @@
 
 namespace ZeroGames.Extensions.Async;
 
-public struct LifetimeBackendComp(ILifetimeBackend backend)
+public struct LifetimeBackendCore(ILifetimeBackend backend)
 {
 
 	public void Initialize()
@@ -13,6 +13,8 @@ public struct LifetimeBackendComp(ILifetimeBackend backend)
 	public void Deinitialize()
 	{
 		_registry?.Clear();
+		_boundResources?.Clear();
+		_boundLeses?.Clear();
 	}
 	
 	public LifetimeExpiredRegistration RegisterOnExpired(Action callback, LifetimeToken token)
@@ -25,7 +27,7 @@ public struct LifetimeBackendComp(ILifetimeBackend backend)
 			return default;
 		}
 		
-		_registry ??= new();
+		_registry ??= [];
 		LifetimeExpiredRegistration reg = new((IReactiveLifetimeBackend)_backend, ++_handle);
 		_registry[reg] = new(callback, null, null);
 
@@ -42,7 +44,7 @@ public struct LifetimeBackendComp(ILifetimeBackend backend)
 			return default;
 		}
 		
-		_registry ??= new();
+		_registry ??= [];
 		LifetimeExpiredRegistration reg = new((IReactiveLifetimeBackend)_backend, ++_handle);
 		_registry[reg] = new(null, callback, state);
 
@@ -59,6 +61,32 @@ public struct LifetimeBackendComp(ILifetimeBackend backend)
 		}
 		
 		_registry?.Remove(registration);
+	}
+	
+	public void BindResourceLifetime(IDisposable resource, LifetimeToken token)
+	{
+		if (IsExpired(token))
+		{
+			resource.Dispose();
+		}
+		else
+		{
+			_boundResources ??= [];
+			_boundResources.Add(resource);
+		}
+	}
+
+	public void BindResourceLifetime(LifetimeExpirationSource resource, LifetimeToken token)
+	{
+		if (IsExpired(token))
+		{
+			resource.SetExpired();
+		}
+		else
+		{
+			_boundLeses ??= [];
+			_boundLeses.Add(resource);
+		}
 	}
 
 	public bool IsExpired(LifetimeToken token)
@@ -89,6 +117,22 @@ public struct LifetimeBackendComp(ILifetimeBackend backend)
 				}
 			}
 		}
+
+		if (_boundResources is not null)
+		{
+			foreach (var resource in _boundResources)
+			{
+				resource.Dispose();
+			}
+		}
+		
+		if (_boundLeses is not null)
+		{
+			foreach (var source in _boundLeses)
+			{
+				source.SetExpired();
+			}
+		}
 	}
 
 	public LifetimeToken Token { get; private set; }
@@ -107,6 +151,8 @@ public struct LifetimeBackendComp(ILifetimeBackend backend)
 	private uint64 _handle;
 	
 	private Dictionary<LifetimeExpiredRegistration, Rec>? _registry;
+	private List<IDisposable>? _boundResources;
+	private List<LifetimeExpirationSource>? _boundLeses;
 
 }
 
